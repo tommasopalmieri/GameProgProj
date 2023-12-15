@@ -26,12 +26,15 @@ unsigned int MENU_DATA[] =
 MenuScreen::~MenuScreen()
 {
 
-    //Mix_FreeChunk(m_state.jump_sfx);
-    //Mix_FreeMusic(m_state.bgm);
+    Mix_FreeChunk(m_state.jump_sfx);
+    Mix_FreeMusic(m_state.bgm);
 }
 
 void MenuScreen::initialise()
 {
+    
+    const char  BGM_FILEPATH[]          = "assets/dooblydoo.mp3",
+                BOUNCING_SFX_FILEPATH[] = "assets/bounce.wav";
     
     font_id = Utility::load_texture("assets/font1.png");
     m_state.next_scene_id = -1;
@@ -78,6 +81,14 @@ void MenuScreen::initialise()
     /**
      BGM and SFX
      */
+    
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+
+    m_state.bgm = Mix_LoadMUS(BGM_FILEPATH);
+    Mix_PlayMusic(m_state.bgm, -1);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4.0f);
+
+    m_state.jump_sfx = Mix_LoadWAV(BOUNCING_SFX_FILEPATH);
 
 }
 
@@ -90,7 +101,7 @@ void MenuScreen::update(float delta_time)
 
 void MenuScreen::render(ShaderProgram* program)
 {
-    Utility::draw_text(program, font_id, "Platformer", 0.5, 0.00000005, glm::vec3(1.0f,-0.5f,0.0f));
+    Utility::draw_text(program, font_id, "Skier", 0.5, 0.00000005, glm::vec3(1.0f,-0.5f,0.0f));
     Utility::draw_text(program, font_id, "Press space to start. ", 0.3, 0.00000005, glm::vec3(1.0f,-1.0f,0.0f));
     m_state.map->render(program);
 

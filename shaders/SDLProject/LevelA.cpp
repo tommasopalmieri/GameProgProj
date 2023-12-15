@@ -12,7 +12,7 @@ unsigned int LEVELA_DATA[] =
     3, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,1,0,0,
     3, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,1,0,0,
     3, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0,1,1,0,
-    3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0,0,0,0,
+    3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0,1,1,0,
     3, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0,0,0,0,
     3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1,1,1,1,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2,2,2
@@ -148,8 +148,8 @@ void LevelA::initialise()
     m_state.enemies_v.push_back(new Entity);
     
     m_state.enemies_v[0]->set_entity_type(ENEMY);
-    m_state.enemies_v[0]->set_width(0.8f);
-    m_state.enemies_v[0]->set_height(0.8f);
+    m_state.enemies_v[0]->set_width(ENEMY_W);
+    m_state.enemies_v[0]->set_height(ENEMY_H);
     m_state.enemies_v[0]->set_ai_type(JUMPER);
     m_state.enemies_v[0]->set_ai_state(IDLE);
     m_state.enemies_v[0]->set_jumping_power(1.0f);
@@ -163,20 +163,20 @@ void LevelA::initialise()
     
     m_state.enemies_v.push_back(new Entity);
     m_state.enemies_v[1]->set_entity_type(ENEMY);
-    m_state.enemies_v[1]->set_width(0.8f);
-    m_state.enemies_v[1]->set_height(0.8f);
+    m_state.enemies_v[1]->set_width(ENEMY_W);
+    m_state.enemies_v[1]->set_height(ENEMY_H);
     m_state.enemies_v[1]->set_jumping_power(1.0f);
     m_state.enemies_v[1]->m_texture_id = enemy_texture_id;
-    m_state.enemies_v[1]->set_position(glm::vec3(9.0f, -3.5f, 0.0f));
+    m_state.enemies_v[1]->set_position(glm::vec3(8.5f, -3.0f, 0.0f));
     m_state.enemies_v[1]->set_movement(glm::vec3(0.0f));
-    m_state.enemies_v[1]->set_speed(1.0f);
+    m_state.enemies_v[1]->set_speed(0.5f);
     m_state.enemies_v[1]->set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
     m_state.enemies_v[1]->activate();
     
     m_state.enemies_v.push_back(new Entity);
     m_state.enemies_v[2]->set_entity_type(ENEMY);
-    m_state.enemies_v[2]->set_width(0.8f);
-    m_state.enemies_v[2]->set_height(0.8f);
+    m_state.enemies_v[2]->set_width(ENEMY_W);
+    m_state.enemies_v[2]->set_height(ENEMY_H);
     m_state.enemies_v[2]->set_ai_type(JUMPER);
     m_state.enemies_v[2]->set_ai_state(IDLE);
     m_state.enemies_v[2]->set_jumping_power(1.0f);
@@ -223,17 +223,14 @@ void LevelA::initialise()
      BGM and SFX
      */
 
-    
-    
-    
-    
+
     
     // ––––– AUDIO STUFF ––––– //
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     m_state.bgm = Mix_LoadMUS(BGM_FILEPATH);
     Mix_PlayMusic(m_state.bgm, -1);
-    Mix_VolumeMusic(0.0f);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4.0f);
 
     m_state.jump_sfx = Mix_LoadWAV(BOUNCING_SFX_FILEPATH);
 }

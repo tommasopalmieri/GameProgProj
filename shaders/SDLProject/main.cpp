@@ -95,7 +95,7 @@ void switch_to_scene(Scene* scene)
 void initialise()
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    g_display_window = SDL_CreateWindow("Hello, Special Effects!",
+    g_display_window = SDL_CreateWindow("Hello, Skier!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH, WINDOW_HEIGHT,
         SDL_WINDOW_OPENGL);
@@ -135,12 +135,13 @@ void initialise()
     g_levels[1] = g_levelB;
     g_levels[2] = g_levelC;
     // Start at level A
-    switch_to_scene(g_levelA);
+    switch_to_scene(g_menu);
 
     g_effects = new Effects(g_projection_matrix, g_view_matrix);
     g_effects->start(SHRINK, 2.0f);
     
-
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    Mix_PlayMusic(g_current_scene->m_state.bgm, -1);
 
 }
 
@@ -172,6 +173,7 @@ void process_input()
                  case SDLK_k:
                         // Quit the game with a keystroke
                         g_current_scene->playerBullet();
+                        Mix_PlayChannel(-1, g_current_scene->m_state.jump_sfx, 0);
                         break;
 
                 case SDLK_SPACE:
@@ -283,9 +285,11 @@ void update()
             switch_to_scene(g_levelC);
             
         }
-        //g_view_matrix = glm::translate(g_view_matrix, g_effects->m_view_offset);
+        g_view_matrix = glm::translate(g_view_matrix, g_effects->m_view_offset);
         g_program.set_light_position(g_current_scene->m_state.player->get_position());
     
+        
+        
 }
 
 void render()

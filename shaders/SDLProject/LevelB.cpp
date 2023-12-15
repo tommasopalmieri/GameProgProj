@@ -6,14 +6,27 @@
 #define LEVEL_HEIGHT 8
 #define LEVEL_A_ENEMIES 2
 
+
+unsigned int LEVELC_DATA[] =
+{
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2,
+    2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 2,
+    3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2,
+    3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
+    3, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2
+};
+
 unsigned int LevelB_DATA[] =
 {
     3, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    3, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-    3, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,
-    3, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0,
-    3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1,
+    3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    3, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,
+    3, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2, 0, 0,
+    3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0,
+    3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
     3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
@@ -111,7 +124,7 @@ void LevelB::initialise()
     // Existing
     m_state.player = new Entity();
     m_state.player->set_entity_type(PLAYER);
-    m_state.player->set_position(glm::vec3(2.3f, -0.8f, 0.0f));
+    m_state.player->set_position(glm::vec3(1.3f, -0.8f, 0.0f));
     m_state.player->set_movement(glm::vec3(0.0f));
     m_state.player->m_speed = 2.5f;
     m_state.player->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -152,7 +165,7 @@ void LevelB::initialise()
     m_state.enemies_v[0]->ai_activate(m_state.player);
     m_state.enemies_v[0]->set_jumping_power(1.0f);
     m_state.enemies_v[0]->m_texture_id = enemy_texture_id;
-    m_state.enemies_v[0]->set_position(glm::vec3(5.0f, -5.0f, 0.0f));
+    m_state.enemies_v[0]->set_position(glm::vec3(4.0f, -5.0f, 0.0f));
     m_state.enemies_v[0]->set_movement(glm::vec3(0.0f));
     m_state.enemies_v[0]->set_speed(0.5f);
     m_state.enemies_v[0]->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -167,11 +180,27 @@ void LevelB::initialise()
 //    m_state.enemies_v[1]->set_ai_state(IDLE);
     m_state.enemies_v[1]->set_jumping_power(1.0f);
     m_state.enemies_v[1]->m_texture_id = enemy_texture_id;
-    m_state.enemies_v[1]->set_position(glm::vec3(9.0f, -3.8f, 0.0f));
+    m_state.enemies_v[1]->set_position(glm::vec3(2.0f, -3.8f, 0.0f));
     m_state.enemies_v[1]->set_movement(glm::vec3(0.0f));
     m_state.enemies_v[1]->set_speed(0.5f);
     m_state.enemies_v[1]->set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
     m_state.enemies_v[1]->activate();
+    
+    
+    m_state.enemies_v.push_back(new Entity);
+    m_state.enemies_v[2]->set_entity_type(ENEMY);
+    m_state.enemies_v[2]->set_width(0.8f);
+    m_state.enemies_v[2]->set_height(0.8f);
+    m_state.enemies_v[2]->set_ai_type(JUMPER);
+    m_state.enemies_v[2]->set_ai_state(IDLE);
+    m_state.enemies_v[2]->ai_activate(m_state.player);
+    m_state.enemies_v[2]->set_jumping_power(1.0f);
+    m_state.enemies_v[2]->m_texture_id = enemy_texture_id;
+    m_state.enemies_v[2]->set_position(glm::vec3(7.0f, -5.0f, 0.0f));
+    m_state.enemies_v[2]->set_movement(glm::vec3(0.0f));
+    m_state.enemies_v[2]->set_speed(-0.5f);
+    m_state.enemies_v[2]->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+    m_state.enemies_v[2]->activate();
     
     
     m_state.key = new Entity();
@@ -205,7 +234,7 @@ void LevelB::initialise()
 
     m_state.bgm = Mix_LoadMUS(BGM_FILEPATH);
     Mix_PlayMusic(m_state.bgm, -1);
-    Mix_VolumeMusic(0.0f);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4.0f);
 
     m_state.jump_sfx = Mix_LoadWAV(BOUNCING_SFX_FILEPATH);
 }
@@ -262,7 +291,7 @@ void LevelB::update(float delta_time)
 
 
     
-    if (!m_state.key->is_active()) m_state.next_scene_id = 1;
+    if (!m_state.key->is_active()) m_state.next_scene_id = 2;
 }
 
 void LevelB::render(ShaderProgram* program)

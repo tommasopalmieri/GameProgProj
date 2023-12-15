@@ -18,6 +18,8 @@
 
 #define PLAYER_H 0.5f
 #define PLAYER_W 0.5f
+#define ENEMY_H 0.6f
+#define ENEMY_W 0.6f
 
 struct GameState
 {
