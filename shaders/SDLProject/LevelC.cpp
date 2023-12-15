@@ -141,7 +141,7 @@ void LevelC::initialise()
     m_state.player->set_entity_type(PLAYER);
     m_state.player->set_position(glm::vec3(1.3f, -0.8f, 0.0f));
     m_state.player->set_movement(glm::vec3(0.0f));
-    m_state.player->m_speed = 2.0f;
+    m_state.player->m_speed = 1.5f;
     m_state.player->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     m_state.player->m_texture_id = Utility::load_texture("assets/george_0.png");
 
@@ -213,7 +213,7 @@ void LevelC::initialise()
     m_state.enemies_v[2]->m_texture_id = enemy_texture_id;
     m_state.enemies_v[2]->set_position(glm::vec3(7.0f, -5.0f, 0.0f));
     m_state.enemies_v[2]->set_movement(glm::vec3(0.0f));
-    m_state.enemies_v[2]->set_speed(-0.5f);
+    m_state.enemies_v[2]->set_speed(0.5f);
     m_state.enemies_v[2]->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
     m_state.enemies_v[2]->activate();
     
